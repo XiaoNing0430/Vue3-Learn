@@ -29,7 +29,13 @@
         age++
       }
 
+      // 将数据、方法返回，模版才能使用
       return { name, age, changeName, changeAge }
+
+      // setup 的返回值也可以是一个渲染函数
+      // return function() {
+      //   return '哈哈'
+      // }
     }
   }
 </script>
