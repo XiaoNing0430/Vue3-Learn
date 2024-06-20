@@ -7,36 +7,24 @@
   </div>
 </template>
 
-<script lang="ts">
-  export default {
-    name: 'Person',
-    setup() {
-      // 数据
-      // 此时的name和age不是响应式的
-      let name = '张三'
-      let age = 18
+<!-- name属性可以自定义组件的名称，方便调试 -->
+<script setup lang="ts" name="Person">
+  // 数据
+  // 此时的name和age不是响应式的
+  let name = '张三'
+  let age = 18
 
-      // 方法
-      function changeName() {
-        console.log('change name')
-        // 这样修改 name，页面没有变化
-        name = '李四'
-        // name 改了，但 name 不是响应式的
-        console.log(name)
-      }
+  // 方法
+  function changeName() {
+    console.log('change name')
+    // 这样修改 name，页面没有变化
+    name = '李四'
+    // name 改了，但 name 不是响应式的
+    console.log(name)
+  }
 
-      function changeAge() {
-        age++
-      }
-
-      // 将数据、方法返回，模版才能使用
-      return { name, age, changeName, changeAge }
-
-      // setup 的返回值也可以是一个渲染函数
-      // return function() {
-      //   return '哈哈'
-      // }
-    }
+  function changeAge() {
+    age++
   }
 </script>
 
