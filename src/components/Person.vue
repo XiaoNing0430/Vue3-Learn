@@ -9,22 +9,22 @@
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
+  import { ref } from 'vue'
+
   // 数据
-  // 此时的name和age不是响应式的
-  let name = '张三'
-  let age = 18
+  // 此时的name和age是一个RefImpl的实例对象，简称ref对象，它们的value属性是响应式的。
+  let name = ref('张三')
+  let age = ref(18)
 
   // 方法
   function changeName() {
     console.log('change name')
-    // 这样修改 name，页面没有变化
-    name = '李四'
-    // name 改了，但 name 不是响应式的
-    console.log(name)
+    // // JS中操作ref对象时候需要.value
+    name.value = '李四'
   }
 
   function changeAge() {
-    age++
+    age.value++
   }
 </script>
 
