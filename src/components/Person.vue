@@ -1,9 +1,9 @@
 <template>
   <div class = "person">
-    <h2>姓名：{{ name }}</h2>
-    <h2>年龄：{{ age }}</h2>
-    <button @click = "changeName">修改姓名</button>
-    <button @click = "changeAge">增加年龄</button>
+    <h2>品牌：{{ car.brand }}</h2>
+    <h2>价格：{{ car.price }}</h2>
+    <button @click = "changeBrand">修改品牌</button>
+    <button @click = "changePrice">增加价格</button>
   </div>
 </template>
 
@@ -12,20 +12,21 @@
   import { ref } from 'vue'
 
   // 数据
-  // 此时的name和age是一个RefImpl的实例对象，简称ref对象，它们的value属性是响应式的。
-  let name = ref('张三')
-  let age = ref(18)
+  let car = ref ({
+    brand: '奔驰',
+    price: 1000000
+  })
 
-  // 方法
-  function changeName() {
-    console.log('change name')
-    // // JS中操作ref对象时候需要.value
-    name.value = '李四'
+  function changeBrand() {
+    car.value.brand = '宝马'
   }
 
-  function changeAge() {
-    age.value++
+  function changePrice() {
+    car.value.price += 10000
   }
+
+
+
 </script>
 
 <style>
