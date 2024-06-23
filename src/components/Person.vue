@@ -1,37 +1,35 @@
 <template>
   <div class = "person">
-
+    <ul>
+      <li v-for="person in persons" :key="person.id">
+        姓名：{{ person.name + '，年龄：' + person.age }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { reactive } from 'vue'
-  import { type Person, type Persons } from '@/types'
+  import { type Persons } from '@/types'
+  import { defineProps, withDefaults } from 'vue'
 
-  let person:Person = reactive({
-    id: '001',
-    name: '张三',
-    age: 18
+
+  // defineProps(['persons'])
+
+  // 接收persons + 限制类型
+  // defineProps<{persons: Persons}>()
+
+  // 接收persons + 限制类型
+  // defineProps<{persons: Persons}>()
+
+  // 接收persons + 限制类型 + 限制必要性 + 默认值
+  withDefaults(defineProps<{persons?: Persons}>(), {
+    persons: () => [
+      { id: '1', name: 'default1', age: 18 },
+      { id: '2', name: 'default2', age: 20 },
+      { id: '3', name: 'default3', age: 22 }
+    ]
   })
-
-  let persons:Persons = reactive([
-    {
-      id: '001',
-      name: '张三',
-      age: 18
-    },
-    {
-      id: '002',
-      name: '李四',
-      age: 20
-    },
-    {
-      id: '003',
-      name: '王五',
-      age: 22
-    }
-  ])
 
 </script>
 
