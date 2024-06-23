@@ -1,23 +1,37 @@
 <template>
   <div class = "person">
-    <h1>中国</h1>
-    <h2 ref="title2">上海</h2>
-    <h3>浦东新区</h3>
 
-    <button @click="getH2">获取h2</button>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { ref } from 'vue'
+  import { reactive } from 'vue'
+  import { type Person, type Persons } from '@/types'
 
-  // 用于存储ref标记的内容
-  let title2 = ref()
+  let person:Person = reactive({
+    id: '001',
+    name: '张三',
+    age: 18
+  })
 
-  function getH2() {
-    console.log(title2.value)
-  }
+  let persons:Persons = reactive([
+    {
+      id: '001',
+      name: '张三',
+      age: 18
+    },
+    {
+      id: '002',
+      name: '李四',
+      age: 20
+    },
+    {
+      id: '003',
+      name: '王五',
+      age: 22
+    }
+  ])
 
 </script>
 
