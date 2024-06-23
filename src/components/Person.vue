@@ -52,14 +52,8 @@
   }
 
   // 监视
-  // 监视对象中的基本属性
-  watch(() => person.name, (newValue, oldValue) => {
-    console.log('姓名变化', newValue, oldValue)
-  })
-
-  // 监视对象中的对象
-  watch(() => person.car, (newValue, oldValue) => {
-    console.log('汽车变化', newValue, oldValue)
+  watch([() => person.name, () => person.car.brand], (newValue, oldValue) => {
+    console.log('姓名和汽车品牌发生变化', newValue, oldValue)
   }, { deep: true })
 
 </script>
