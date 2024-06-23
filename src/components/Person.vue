@@ -1,21 +1,29 @@
 <template>
   <div class = "person">
-    姓：<input type="text" v-model="lastName" /> <br />
-    名：<input type="text" v-model="firstName" /> <br />
-    姓名：<span>{{ fullName }}</span>
+    <h1>情况一：监视 ref 定义的基本类型</h1>
+    <h2>当前和为：{{ sum }}</h2>
+    <button @click="changeSum">sum + 1</button>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { ref, computed } from 'vue'
+  import { ref, watch } from 'vue'
 
-  const lastName = ref('')
-  const firstName = ref('')
+  // 数据
+  const sum = ref(0)
 
-  // 只读的计算属性
-  const fullName = computed(() => {
-    return lastName.value + '-' + firstName.value
+  // 方法
+  const changeSum = () => {
+    sum.value += 1
+  }
+
+  // 监视
+  const stopWatch = watch(sum, (newValue, oldValue) => {
+    console.log('sum变化了', newValue, oldValue)
+    if (newValue > 10) {
+      stopWatch()
+    }
   })
 
 </script>
