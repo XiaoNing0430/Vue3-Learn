@@ -1,26 +1,15 @@
 <template>
   <div class = "person">
-    <h1>情况一：监视 ref 定义的基本类型</h1>
-    <h2>当前和为：{{ sum }}</h2>
-    <button @click="changeSum">sum + 1</button>
-
-    <hr />
-
-    <h1>情况二：监视 ref 定义的对象类型数据</h1>
-    <h2>当前姓名：{{ person.name }}</h2>
-    <h2>当前年龄：{{ person.age }}</h2>
+    <h1>情况四：</h1>
+    <h2>姓名：{{ person.name }}</h2>
+    <h2>年龄：{{ person.age }}</h2>
+    <h2>汽车品牌：{{ person.car.brand }}</h2>
+    <h2>汽车价格：{{ person.car.price }}</h2>
     <button @click="changeName">修改姓名</button>
-    <button @click="changeAge">年龄+1</button>
-    <button @click="changePerson">修改person</button>
-
-    <hr />
-
-    <h1>情况三：监视 reactive 定义的对象类型数据</h1>
-    <h2>当前姓名：{{ reactivePerson.name }}</h2>
-    <h2>当前年龄：{{ reactivePerson.age }}</h2>
-    <button @click="changeReactiveName">修改姓名</button>
-    <button @click="changeReactiveAge">年龄+1</button>
-    <button @click="changeReactivePerson">修改person</button>
+    <button @click="changeAge">修改年龄</button>
+    <button @click="changeCarBrand">修改汽车品牌</button>
+    <button @click="changeCarPrice">修改汽车价格</button>
+    <button @click="changeCar">修改汽车</button>
   </div>
 </template>
 
@@ -29,92 +18,49 @@
   import { ref, reactive, watch } from 'vue'
 
   // 数据
-  const sum = ref(0)
-
-  // 方法
-  const changeSum = () => {
-    sum.value += 1
-  }
-
-  // 监视
-  const stopWatch = watch(sum, (newValue, oldValue) => {
-    console.log('sum变化了', newValue, oldValue)
-    if (newValue > 10) {
-      stopWatch()
-    }
-  })
-
-  /* 监视对象类型数据 */
-
-  // 数据
-  const person = ref({
+  let person = reactive({
     name: '张三',
     age: 18,
+    car: {
+      brand: '奔驰',
+      price: 100000
+    }
   })
 
   // 方法
   function changeName() {
-    person.value.name += '~'
+    person.name += '~'
   }
 
   function changeAge() {
-    person.value.age += 1
+    person.age += 1
   }
 
-  function changePerson() {
-    person.value = {
-      name: '李四',
-      age: 20,
+  function changeCarBrand() {
+    person.car.brand += '~'
+  }
+
+  function changeCarPrice() {
+    person.car.price += 10000
+  }
+
+  function changeCar() {
+    person.car = {
+      brand: '宝马',
+      price: 200000
     }
   }
 
-  // 监视。监视的是对象的引用地址。若想监视对象内部的属性，需要使用deep选项
-  watch(
-    // 监视的数据
-    person, 
-    // 回调函数
-    (newValue, oldValue) => {
-      console.log('person变化了', newValue, oldValue)
-    }, 
-    // 配置对象
-    { 
-      // 开启深度监视
-      deep: true 
-    }
-  )
-
-  /* 监视 reactive 定义的对象类型数据 */
-  // 数据
-  let reactivePerson = reactive({
-    name: '张三',
-    age: 18,
+  // 监视
+  // 监视对象中的基本属性
+  watch(() => person.name, (newValue, oldValue) => {
+    console.log('姓名变化', newValue, oldValue)
   })
 
-  // 方法
-  function changeReactiveName() {
-    reactivePerson.name += '~'
-  }
-
-  function changeReactiveAge() {
-    reactivePerson.age += 1
-  }
-
-  function changeReactivePerson() {
-    Object.assign(reactivePerson, {
-      name: '李四',
-      age: 20,
-    })
-  }
-
-  // 监视 reactive 定义的对象类型数据，默认开启深度监视
-  watch(
-    // 监视的数据
-    reactivePerson, 
-    // 回调函数
-    (newValue, oldValue) => {
-      console.log('reactivePerson变化了', newValue, oldValue)
-    }, 
-  )
+  // 监视对象中的对象
+  watch(() => person.car, (newValue, oldValue) => {
+    console.log('汽车变化', newValue, oldValue)
+  }, { deep: true })
 
 </script>
 
