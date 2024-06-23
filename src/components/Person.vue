@@ -12,12 +12,21 @@
     <button @click="changeName">修改姓名</button>
     <button @click="changeAge">年龄+1</button>
     <button @click="changePerson">修改person</button>
+
+    <hr />
+
+    <h1>情况三：监视 reactive 定义的对象类型数据</h1>
+    <h2>当前姓名：{{ reactivePerson.name }}</h2>
+    <h2>当前年龄：{{ reactivePerson.age }}</h2>
+    <button @click="changeReactiveName">修改姓名</button>
+    <button @click="changeReactiveAge">年龄+1</button>
+    <button @click="changeReactivePerson">修改person</button>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { ref, watch } from 'vue'
+  import { ref, reactive, watch } from 'vue'
 
   // 数据
   const sum = ref(0)
@@ -72,6 +81,39 @@
       // 开启深度监视
       deep: true 
     }
+  )
+
+  /* 监视 reactive 定义的对象类型数据 */
+  // 数据
+  let reactivePerson = reactive({
+    name: '张三',
+    age: 18,
+  })
+
+  // 方法
+  function changeReactiveName() {
+    reactivePerson.name += '~'
+  }
+
+  function changeReactiveAge() {
+    reactivePerson.age += 1
+  }
+
+  function changeReactivePerson() {
+    Object.assign(reactivePerson, {
+      name: '李四',
+      age: 20,
+    })
+  }
+
+  // 监视 reactive 定义的对象类型数据，默认开启深度监视
+  watch(
+    // 监视的数据
+    reactivePerson, 
+    // 回调函数
+    (newValue, oldValue) => {
+      console.log('reactivePerson变化了', newValue, oldValue)
+    }, 
   )
 
 </script>
