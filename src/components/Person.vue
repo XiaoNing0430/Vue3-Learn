@@ -1,47 +1,27 @@
 <template>
   <div class = "person">
-    <h2>水温：{{ temperature }}</h2>
-    <h2>水位：{{ height }}cm</h2>
-    <button @click="addTemperature">水温+10</button>
-    <button @click="addHeight">水位+10</button>
+    <h1>中国</h1>
+    <h2 ref="title2">上海</h2>
+    <h3>浦东新区</h3>
+
+    <button @click="getH2">获取h2</button>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { ref, watch, watchEffect } from 'vue'
+  import { ref } from 'vue'
 
-  // 数据
-  let temperature = ref(0)
-  let height = ref(0)
+  // 用于存储ref标记的内容
+  let title2 = ref()
 
-  // 方法
-  function addTemperature() {
-    temperature.value += 10
+  function getH2() {
+    console.log(title2.value)
   }
-
-  function addHeight() {
-    height.value += 10
-  }
-
-  // 监视
-  /* watch([temperature, height], (newValue) => {
-    console.log('temperature、height变化了', newValue)
-    let [newTemperature, newHeight] = newValue
-    if(newTemperature >= 60 || newHeight >= 80) {
-      alert('报警')
-    }
-  }) */
-
-  watchEffect(() => {
-    if(temperature.value >= 60 || height.value >= 80) {
-      alert('报警')
-    }
-  })
 
 </script>
 
-<style>
+<style scoped>
   .person {
     background-color: skyblue;
     box-shadow: 0 0 10px;
