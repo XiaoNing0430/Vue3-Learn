@@ -1,35 +1,52 @@
 <template>
   <div class = "person">
-    <ul>
-      <li v-for="person in persons" :key="person.id">
-        姓名：{{ person.name + '，年龄：' + person.age }}
-      </li>
-    </ul>
+    <h2>和：{{ sum }}</h2>
+
+    <button @click="changeSum">sum+1</button>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { type Persons } from '@/types'
-  import { defineProps, withDefaults } from 'vue'
+  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
 
+  // 数据
+  let sum = ref(0);
 
-  // defineProps(['persons'])
+  // 方法
+  function changeSum() {
+    sum.value++;
+  }
 
-  // 接收persons + 限制类型
-  // defineProps<{persons: Persons}>()
+  // 创建
+  console.log('创建');
 
-  // 接收persons + 限制类型
-  // defineProps<{persons: Persons}>()
+  // 挂载
+  onBeforeMount(() => {
+    console.log('挂载前');
+  });
 
-  // 接收persons + 限制类型 + 限制必要性 + 默认值
-  withDefaults(defineProps<{persons?: Persons}>(), {
-    persons: () => [
-      { id: '1', name: 'default1', age: 18 },
-      { id: '2', name: 'default2', age: 20 },
-      { id: '3', name: 'default3', age: 22 }
-    ]
-  })
+  onMounted(() => {
+    console.log('挂载后');
+  });
+
+  // 更新
+  onBeforeUpdate(() => {
+    console.log('更新前');
+  });
+
+  // 卸载
+  onBeforeUnmount(() => {
+    console.log('卸载前');
+  });
+
+  onUnmounted(() => {
+    console.log('卸载后');
+  });
+
+  onUpdated(() => {
+    console.log('更新后');
+  });
 
 </script>
 

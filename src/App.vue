@@ -1,29 +1,17 @@
 <template>
-  <Person :persons="persons" />
+  <Person v-if="isShow" />
+
+  <button @click="isShow = !isShow">
+    {{ isShow ? '隐藏' : '显示' }}
+  </button>
 </template>
 
 <script lang="ts" setup name="App">
-  import Person from './components/Person.vue'
-  import { reactive } from 'vue';
-  import { type Persons } from '@/types';
+  import { ref } from 'vue'
+  import Person from '@/components/Person.vue'
 
-  let persons = reactive<Persons>([
-    {
-      id: '1',
-      name: '张三',
-      age: 18
-    },
-    {
-      id: '2',
-      name: '李四',
-      age: 20
-    },
-    {
-      id: '3',
-      name: '王五',
-      age: 22
-    }
-  ])
+  let isShow = ref(true)
+
 </script>
 
 <style>
