@@ -3,50 +3,21 @@
     <h2>和：{{ sum }}</h2>
 
     <button @click="changeSum">sum+1</button>
+
+    <hr>
+    <img v-for="(dog, index) in dogs" :key="index" :src="dog" alt="">
+    <br />
+    <button @click="getDog">再来一只修勾</button>
   </div>
 </template>
 
 <!-- name属性可以自定义组件的名称，方便调试 -->
 <script setup lang="ts" name="Person">
-  import { ref, onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted } from 'vue';
+  import useSum from '@/hooks/useSum';
+  import useDog from '@/hooks/useDog';
 
-  // 数据
-  let sum = ref(0);
-
-  // 方法
-  function changeSum() {
-    sum.value++;
-  }
-
-  // 创建
-  console.log('创建');
-
-  // 挂载
-  onBeforeMount(() => {
-    console.log('挂载前');
-  });
-
-  onMounted(() => {
-    console.log('挂载后');
-  });
-
-  // 更新
-  onBeforeUpdate(() => {
-    console.log('更新前');
-  });
-
-  // 卸载
-  onBeforeUnmount(() => {
-    console.log('卸载前');
-  });
-
-  onUnmounted(() => {
-    console.log('卸载后');
-  });
-
-  onUpdated(() => {
-    console.log('更新后');
-  });
+  const { sum, changeSum } = useSum();
+  const { dogs, getDog } = useDog();
 
 </script>
 
@@ -59,5 +30,9 @@
   }
   button {
     margin: 0 5px;
+  }
+  img {
+    height: 200px;
+    margin-right: 10px;
   }
 </style>
