@@ -2,7 +2,15 @@
   <div class="news">
     <ul>
       <li v-for="item in newList" :key="item.id">
-        <router-link to="/news/detail">{{ item.title }}</router-link>
+        <!-- 第一种写法 -->
+        <!-- <router-link :to="`/news/detail?id=${item.id}&title=${item.title}&content=${item.content}`">{{ item.title }}</router-link> -->
+
+        <!-- 第二种写法 -->
+        <router-link 
+          :to="{path: '/news/detail', query: {id: item.id, title: item.title, content: item.content}}"
+        >
+          {{ item.title }}
+        </router-link>
       </li>
     </ul>
     <div class="news-content">
@@ -12,7 +20,8 @@
 </template>
 
 <script lang="ts" setup name="News">
-  import { reactive } from 'vue'
+  import type { title } from 'process';
+import { reactive } from 'vue'
   import { RouterView, RouterLink } from 'vue-router';
 
   const newList = reactive([
