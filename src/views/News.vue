@@ -1,11 +1,25 @@
 <template>
   <div class="news">
-    新闻
+    <ul>
+      <li v-for="item in newList" :key="item.id">
+        <router-link to="/news/detail">{{ item.title }}</router-link>
+      </li>
+    </ul>
+    <div class="news-content">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup name="News">
+  import { reactive } from 'vue'
+  import { RouterView, RouterLink } from 'vue-router';
 
+  const newList = reactive([
+    {'id': '001', 'title': '新闻1', 'content': '新闻1内容'},
+    {'id': '002', 'title': '新闻2', 'content': '新闻2内容'},
+    {'id': '003', 'title': '新闻3', 'content': '新闻3内容'}
+  ])
 </script>
 
 <style scoped>

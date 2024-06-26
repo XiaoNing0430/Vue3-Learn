@@ -16,7 +16,15 @@ const router = createRouter({
 		{
 			name: 'news',
 			path: '/news',
-		  component: () => import('@/views/News.vue')
+		  component: () => import('@/views/News.vue'),
+			// 嵌套路由
+			children: [
+				{
+					name: 'news-detail',
+					path: 'detail',
+					component: () => import('@/views/NewsDetail.vue')
+				}
+			]
 		},
 		{
 			path: '/about',
