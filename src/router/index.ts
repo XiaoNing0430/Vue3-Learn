@@ -9,10 +9,12 @@ const router = createRouter({
 	// 一个一个路由规则
   routes: [
 		{
+			name: 'home',
 			path: '/home',
 		  component: () => import('@/views/Home.vue')
 		},
 		{
+			name: 'news',
 			path: '/news',
 		  component: () => import('@/views/News.vue')
 		},
