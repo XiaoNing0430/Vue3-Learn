@@ -1,6 +1,5 @@
 // 创建一个路由器，并暴露出去
 // 1. 引入 createRouter
-import { title } from "process"
 import { createRouter, createWebHistory } from "vue-router"
 
 // 2.创建路由器

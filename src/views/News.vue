@@ -5,6 +5,8 @@
         <!-- 第一种写法 -->
         <!-- <router-link :to="`/news/detail?id=${item.id}&title=${item.title}&content=${item.content}`">{{ item.title }}</router-link> -->
 
+        <button @click="showDetail(item)">查看详情</button>
+
         <!-- 第二种写法 -->
         <router-link 
           :to="{path: '/news/detail', query: {id: item.id, title: item.title, content: item.content}}"
@@ -20,15 +22,28 @@
 </template>
 
 <script lang="ts" setup name="News">
-  import type { title } from 'process';
-import { reactive } from 'vue'
-  import { RouterView, RouterLink } from 'vue-router';
+  import { reactive } from 'vue'
+  import { RouterView, RouterLink, useRouter } from 'vue-router';
+
+  const router = useRouter()
 
   const newList = reactive([
     {'id': '001', 'title': '新闻1', 'content': '新闻1内容'},
     {'id': '002', 'title': '新闻2', 'content': '新闻2内容'},
     {'id': '003', 'title': '新闻3', 'content': '新闻3内容'}
   ])
+
+  // 方法
+  function showDetail(record) {
+    router.push({
+      path: '/news/detail',
+      query: {
+        id: record.id,
+        title: record.title,
+        content: record.content
+      }
+    })
+  }
 </script>
 
 <style scoped>
