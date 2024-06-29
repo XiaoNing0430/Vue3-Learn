@@ -24,6 +24,17 @@
 	const selectNum = ref(1)
 
 	function add() {
+		// pinia第一种修改数据的方式
+		// countStore.count += selectNum.value
+
+		// pinia第二种修改数据的方式
+		// countStore.$patch( {
+		// 	count: countStore.count + selectNum.value
+		// })
+			
+		// pinia第三种修改数据的方式
+		// 使用actions 中的方法
+		countStore.increment(selectNum.value)
 	}
 
 	function div() {

@@ -7,4 +7,10 @@ export const useCountStore = defineStore('count', {
       count: 0
     }
   },
+	// 放的是一个一个方法用于响应组件中的动作
+	actions: {
+		increment(n: number) {
+			this.count + n
+		}
+	}
 })
