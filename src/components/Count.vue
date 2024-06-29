@@ -1,6 +1,6 @@
 <template>
   <div class="count">
-		<h2>当前求和为：{{ countStore.count }}</h2>
+		<h2>当前求和为：{{ count }}</h2>
 		<select v-model.number="selectNum">
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -14,8 +14,11 @@
 <script lang="ts" setup name="Count">
 	import { computed, ref } from 'vue'
 	import { useCountStore } from '@/store/count';
+	import { storeToRefs } from 'pinia';
 
 	const countStore = useCountStore()
+	// storeToRefs 函数可以将 store 中的 state 和 getters 转换为 ref 或 reactive 对象
+	const { count } = storeToRefs(countStore)
 
 	// 以下两种方式都可以拿到state中的数据
 	console.log(countStore.count)
