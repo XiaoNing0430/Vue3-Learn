@@ -16,6 +16,15 @@
 
   const loveStore = useLoveStore()
 
+  /**
+   * mutation 本次修改的信息
+   * state   本次修改后的状态
+   */
+  loveStore.$subscribe((mutation, state) => {
+    console.log(mutation, state)
+    localStorage.setItem('loveWords', JSON.stringify(state.loveWords))
+  })
+
   // 方法
   async function getLoveWord() {
     loveStore.getALovwWord()
