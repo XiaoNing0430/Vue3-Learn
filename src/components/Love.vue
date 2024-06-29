@@ -2,7 +2,7 @@
   <div class="love">
     <button @click="getLoveWord">点击获取一句情话</button>
     <ul>
-      <li v-for="(loveWord, index) in loveWords" :key="loveWord.id">
+      <li v-for="(loveWord, index) in loveStore.loveWords" :key="loveWord.id">
         {{ loveWord.content }}
       </li>
     </ul>
@@ -12,12 +12,9 @@
 <script lang="ts" setup name="Love">
   import { reactive } from 'vue'
   import axios from 'axios';
+  import { useLoveStore } from '@/store/love';
 
-  // 数据
-  const loveWords = reactive([
-    { id: 1, content: '今天天气真好' },
-    { id: 2, content: '我爱你' },
-  ])
+  const loveStore = useLoveStore()
 
   // 方法
   async function getLoveWord() {
